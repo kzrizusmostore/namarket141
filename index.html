@@ -1040,6 +1040,150 @@ body.product-page {
 })();
 </script>
 
+
+<style id="payment-flow-solid-fix">
+  .proof-status{font-size:.82rem;}
+  .modal-overlay{
+    background: rgba(0,0,0,.88) !important;
+    backdrop-filter: blur(8px);
+  }
+  #orderModal .modal-card,
+  #depositModal .modal-card,
+  #membershipModal .modal-card{
+    background: #111214 !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    box-shadow: 0 24px 64px rgba(0,0,0,.58) !important;
+    backdrop-filter: none !important;
+  }
+  body.light-mode #orderModal .modal-card,
+  body.light-mode #depositModal .modal-card,
+  body.light-mode #membershipModal .modal-card{
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.10) !important;
+    box-shadow: 0 24px 64px rgba(0,0,0,.18) !important;
+  }
+  #orderModal .modal-card-header,
+  #depositModal .modal-card-header,
+  #membershipModal .modal-card-header,
+  #orderModal .modal-card-body,
+  #depositModal .modal-card-body,
+  #membershipModal .modal-card-body,
+  #orderModal .summary-box,
+  #orderModal .note-box,
+  #depositModal .note-box,
+  #membershipModal .note-box,
+  #orderModal .qty-box,
+  #orderModal .qty-btn,
+  #orderModal .qty-value,
+  #orderModal .text-input,
+  #orderModal .text-select,
+  #orderModal .text-area,
+  #depositModal .text-input,
+  #depositModal .text-select,
+  #membershipModal .text-input,
+  #membershipModal .text-select{
+    background: #17191d !important;
+    backdrop-filter: none !important;
+  }
+  body.light-mode #orderModal .modal-card-header,
+  body.light-mode #depositModal .modal-card-header,
+  body.light-mode #membershipModal .modal-card-header,
+  body.light-mode #orderModal .modal-card-body,
+  body.light-mode #depositModal .modal-card-body,
+  body.light-mode #membershipModal .modal-card-body,
+  body.light-mode #orderModal .summary-box,
+  body.light-mode #orderModal .note-box,
+  body.light-mode #depositModal .note-box,
+  body.light-mode #membershipModal .note-box,
+  body.light-mode #orderModal .qty-box,
+  body.light-mode #orderModal .qty-btn,
+  body.light-mode #orderModal .qty-value,
+  body.light-mode #orderModal .text-input,
+  body.light-mode #orderModal .text-select,
+  body.light-mode #orderModal .text-area,
+  body.light-mode #depositModal .text-input,
+  body.light-mode #depositModal .text-select,
+  body.light-mode #membershipModal .text-input,
+  body.light-mode #membershipModal .text-select{
+    background: #f6f7f9 !important;
+  }
+  #orderModal .summary-box,
+  #orderModal .note-box,
+  #depositModal .note-box,
+  #membershipModal .note-box{
+    border-color: rgba(255,255,255,.10) !important;
+  }
+  body.light-mode #orderModal .summary-box,
+  body.light-mode #orderModal .note-box,
+  body.light-mode #depositModal .note-box,
+  body.light-mode #membershipModal .note-box{
+    border-color: rgba(0,0,0,.08) !important;
+  }
+</style>
+
+<style id="payment-flow-performance-fix">
+  body.modal-open{
+    overflow:hidden;
+    touch-action:none;
+    overscroll-behavior:contain;
+  }
+  body.payment-modal-open #heroBannerTrackV7,
+  body.payment-modal-open .testi-track,
+  body.payment-modal-open .shiny-effect::after,
+  body.payment-modal-open .member-card::before{
+    animation-play-state: paused !important;
+  }
+  body.payment-modal-open .banner-track{
+    animation: none !important;
+  }
+  .modal-overlay{
+    contain: layout paint style;
+  }
+  #orderModal.modal-overlay,
+  #depositModal.modal-overlay,
+  #membershipModal.modal-overlay{
+    background: rgba(0,0,0,.76) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  #orderModal .modal-card,
+  #depositModal .modal-card,
+  #membershipModal .modal-card{
+    contain: layout paint style;
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    box-shadow: 0 14px 32px rgba(0,0,0,.34) !important;
+  }
+  #orderModal .modal-card-header,
+  #depositModal .modal-card-header,
+  #membershipModal .modal-card-header{
+    position: sticky;
+    top: 0;
+  }
+  #orderModal .qris-preview,
+  #depositModal .qris-preview,
+  #membershipModal .qris-preview{
+    max-width: min(180px, 52vw);
+    aspect-ratio: 1 / 1;
+  }
+  #orderModal .summary-box,
+  #orderModal .note-box,
+  #depositModal .note-box,
+  #membershipModal .note-box{
+    box-shadow: none !important;
+  }
+  #orderModal .qty-btn,
+  #orderModal .text-input,
+  #orderModal .text-select,
+  #orderModal .text-area,
+  #depositModal .text-input,
+  #depositModal .text-select,
+  #membershipModal .text-input,
+  #membershipModal .text-select{
+    box-shadow: none !important;
+  }
+</style>
+
 </head>
 <body>
 <div class="statusbar-space"></div>
@@ -1360,7 +1504,8 @@ body.product-page {
                     <div class="field-group">
                         <label>Upload Bukti Transfer</label>
                         <input id="orderProof" type="file" class="text-input" accept="image/*,.pdf">
-                        <div class="helper-text" style="margin-top:8px;">Upload bukti transfer untuk mempermudah verifikasi pembayaran.</div>
+                        <div id="orderProofStatus" class="helper-text proof-status" style="margin-top:8px;">Belum ada file dipilih.</div>
+                        <div class="helper-text" style="margin-top:8px;">Upload bukti transfer untuk mempermudah verifikasi pembayaran. Gambar otomatis diringankan supaya proses checkout lebih ringan.</div>
                     </div>
                     <div class="field-group"><label>Catatan Tambahan</label><textarea id="orderNotes" class="text-area" placeholder="Opsional"></textarea></div>
                     <div class="btn-row">
@@ -1385,7 +1530,7 @@ body.product-page {
                     <div class="field-group"><label>Nomor WhatsApp Aktif</label><input id="depositWhatsapp" class="text-input" placeholder="08xxxxxxxxxx"></div>
                     <div class="field-group"><label>Nominal Deposit</label><input id="depositAmount" type="number" min="1000" class="text-input" placeholder="Contoh 50000"></div>
                     <div class="field-group"><label>Metode Transfer</label><select id="depositMethod" class="text-select" onchange="updateDepositPreview()"><option value="qris">QRIS</option><option value="dana">DANA</option><option value="gopay">GOPAY</option><option value="ovo">OVO</option></select></div><div class="field-group"><label>Detail Pembayaran</label><div class="note-box" id="depositPaymentPreview"></div></div>
-                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="depositProof" type="file" class="text-input" accept="image/*,.pdf"><div class="helper-text" style="margin-top:8px;">Upload bukti transfer untuk membantu verifikasi deposit.</div></div>
+                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="depositProof" type="file" class="text-input" accept="image/*,.pdf"><div id="depositProofStatus" class="helper-text proof-status" style="margin-top:8px;">Belum ada file dipilih.</div><div class="helper-text" style="margin-top:8px;">Upload bukti transfer untuk membantu verifikasi deposit. Gambar otomatis diringankan supaya proses lebih cepat.</div></div>
                     <button class="btn-animated" onclick="submitDepositForm()">Kirim Deposit</button>
                 </div>
             </div>
@@ -1406,7 +1551,7 @@ body.product-page {
                     <div class="field-group"><label>Nomor WhatsApp Aktif</label><input id="membershipWhatsapp" class="text-input" placeholder="08xxxxxxxxxx"></div>
                     <div class="field-group"><label>Paket Membership</label><input id="membershipLevelLabel" class="text-input" readonly></div>
                     <div class="field-group"><label>Metode Transfer</label><select id="membershipMethod" class="text-select" onchange="updateMembershipPreview()"><option value="qris">QRIS</option><option value="dana">DANA</option><option value="gopay">GOPAY</option><option value="ovo">OVO</option></select></div><div class="field-group"><label>Detail Pembayaran</label><div class="note-box" id="membershipPaymentPreview"></div></div>
-                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="membershipProof" type="file" class="text-input" accept="image/*,.pdf"></div>
+                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="membershipProof" type="file" class="text-input" accept="image/*,.pdf"><div id="membershipProofStatus" class="helper-text proof-status" style="margin-top:8px;">Belum ada file dipilih.</div><div class="helper-text" style="margin-top:8px;">Gambar bukti transfer otomatis diringankan sebelum dikirim.</div></div>
                     <button class="btn-animated" onclick="submitMembershipForm()">Kirim Request Membership</button>
                 </div>
             </div>
@@ -8171,23 +8316,19 @@ Mohon diproses ya min!`;
 function openDetail(id) {
     playClick();
     const app = getCatalogItems().find(a => a.id === id);
-    if(!app) return;
+    if (!app) return;
 
-    document.getElementById('modalTitle').innerText = app.name;
     const body = document.getElementById('modalBody');
-    body.innerHTML = `
-        <div style="text-align:center; margin-bottom:20px;">
-            <img src="${app.image}" style="width:80px; height:80px; border-radius:15px; border:2px solid var(--primary); object-fit:contain; background:rgba(255,255,255,0.04); padding:8px;">
-            <h3 style="margin-top:10px;">${app.name}</h3>
-        </div>
-    `;
+    const title = document.getElementById('modalTitle');
+    if (!body || !title) return;
 
-    app.packages.forEach(pkg => {
+    title.innerText = app.name;
+
+    const cards = app.packages.map((pkg) => {
         const productKey = buildProductKey(app.name, pkg.name);
         const tagHtml = app.badge ? `<div style="display:inline-block; margin-left:5px;"><span class="tag-shiny tag-gold">${app.badge}</span></div>` : '';
-
-        body.innerHTML += `
-            <div class="package-card shiny-effect">
+        return `
+            <div class="package-card">
                 <div class="pkg-head" onclick="togglePkg(this)">
                     <div class="pkg-left">
                         <div class="pkg-name">${pkg.name} ${tagHtml}</div>
@@ -8196,14 +8337,23 @@ function openDetail(id) {
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="pkg-body">
-                    <div style="padding: 10px 0; display: flex; gap: 8px; flex-wrap: wrap;">
-                        <button class="btn-animated" style="flex: 2; margin-top: 0; min-width:180px;" onclick='orderNow(__RAWKEY__)'>ORDER <i class="fas fa-paper-plane"></i></button>
-                        <button class="btn-animated" style="flex: 1; margin-top: 0; background: #222; border: 1px solid #444;" onclick='copyOrder(__RAWKEY__)'><i class="fas fa-copy"></i> SALIN</button>
+                    <div style="padding:10px 0; display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn-animated" type="button" style="flex:2; margin-top:0; min-width:180px;" onclick='orderNow(__RAWKEY__)'>ORDER <i class="fas fa-paper-plane"></i></button>
+                        <button class="btn-animated" type="button" style="flex:1; margin-top:0; background:#222; border:1px solid #444;" onclick='copyOrder(__RAWKEY__)'><i class="fas fa-copy"></i> SALIN</button>
                     </div>
                 </div>
             </div>
         `.replace(/__RAWKEY__/g, JSON.stringify(productKey));
-    });
+    }).join('');
+
+    body.innerHTML = `
+        <div style="text-align:center; margin-bottom:20px;">
+            <img src="${app.image}" style="width:80px; height:80px; border-radius:15px; border:2px solid var(--primary); object-fit:contain; background:rgba(255,255,255,0.04); padding:8px;" loading="eager" decoding="async">
+            <h3 style="margin-top:10px;">${app.name}</h3>
+        </div>
+        ${cards}
+    `;
+
     document.getElementById('detailModal').style.display = 'block';
 }
 
@@ -8335,7 +8485,13 @@ function loadStore(key, fallback = []) {
   }
 }
 function saveStore(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.warn('Gagal menyimpan data lokal', error);
+    throw new Error('Penyimpanan lokal penuh. Hapus sebagian riwayat order atau kecilkan ukuran bukti transfer.');
+  }
 }
 function getUsers() { return loadStore(STORAGE_KEYS.users, []); }
 function setUsers(users) { saveStore(STORAGE_KEYS.users, users); }
@@ -8372,10 +8528,187 @@ function upsertUser(user) {
   setUsers(users);
   if (getCurrentSession()?.username === user.username) setCurrentSession({ username: user.username });
 }
+function formatFileSize(bytes) {
+  const size = Number(bytes || 0);
+  if (size < 1024) return `${size} B`;
+  if (size < 1024 * 1024) return `${(size / 1024).toFixed(2)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+}
 function proofMetadata(inputId) {
   const file = document.getElementById(inputId)?.files?.[0];
   if (!file) return 'Tidak ada file';
-  return `${file.name} | ${file.type || 'unknown'} | ${(file.size / 1024).toFixed(2)} KB`;
+  return `${file.name} | ${file.type || 'unknown'} | ${formatFileSize(file.size)}`;
+}
+function updateProofStatus(inputId) {
+  const input = document.getElementById(inputId);
+  const status = document.getElementById(`${inputId}Status`);
+  if (!status) return;
+  const file = input?.files?.[0];
+  status.textContent = file ? `${file.name} • ${file.type || 'unknown'} • ${formatFileSize(file.size)}` : 'Belum ada file dipilih.';
+}
+function bindProofInputs() {
+  ['orderProof', 'depositProof', 'membershipProof'].forEach((inputId) => {
+    const input = document.getElementById(inputId);
+    if (!input || input.dataset.boundProof === 'true') return;
+    input.addEventListener('change', () => updateProofStatus(inputId));
+    input.dataset.boundProof = 'true';
+    updateProofStatus(inputId);
+  });
+}
+function resetProofField(inputId) {
+  const input = document.getElementById(inputId);
+  if (input) input.value = '';
+  updateProofStatus(inputId);
+}
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ''));
+    reader.onerror = () => reject(new Error('Gagal membaca file bukti transfer.'));
+    reader.readAsDataURL(file);
+  });
+}
+function estimateDataUrlBytes(dataUrl) {
+  const base64 = String(dataUrl || '').split(',')[1] || '';
+  const padding = base64.endsWith('==') ? 2 : (base64.endsWith('=') ? 1 : 0);
+  return Math.max(0, Math.floor((base64.length * 3) / 4) - padding);
+}
+function renameFileExtension(name, ext) {
+  const safeName = String(name || 'bukti-transfer').replace(/\.[^.]+$/, '');
+  return `${safeName}.${ext}`;
+}
+function loadImageFromFile(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(img);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Gagal membaca gambar bukti transfer.'));
+    };
+    img.decoding = 'async';
+    img.src = objectUrl;
+  });
+}
+async function optimizeProofFile(file, options = {}) {
+  const isImage = String(file.type || '').startsWith('image/');
+  if (!isImage) {
+    const dataUrl = await readFileAsDataUrl(file);
+    return {
+      dataUrl,
+      name: file.name || 'bukti-transfer',
+      type: file.type || 'application/octet-stream',
+      size: Number(file.size || 0)
+    };
+  }
+
+  const shouldKeepOriginal = Number(file.size || 0) <= Number(options.keepOriginalBelowBytes || (350 * 1024));
+  if (shouldKeepOriginal) {
+    const dataUrl = await readFileAsDataUrl(file);
+    return {
+      dataUrl,
+      name: file.name || 'bukti-transfer',
+      type: file.type || 'application/octet-stream',
+      size: Number(file.size || 0)
+    };
+  }
+
+  const maxDimension = Number(options.maxDimension || 1280);
+  const quality = Number(options.quality || 0.8);
+  const image = await loadImageFromFile(file);
+  let width = Number(image.naturalWidth || image.width || 0);
+  let height = Number(image.naturalHeight || image.height || 0);
+  if (!width || !height) {
+    const dataUrl = await readFileAsDataUrl(file);
+    return {
+      dataUrl,
+      name: file.name || 'bukti-transfer',
+      type: file.type || 'application/octet-stream',
+      size: Number(file.size || 0)
+    };
+  }
+
+  const scale = Math.min(1, maxDimension / Math.max(width, height));
+  width = Math.max(1, Math.round(width * scale));
+  height = Math.max(1, Math.round(height * scale));
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
+  if (!ctx) {
+    const dataUrl = await readFileAsDataUrl(file);
+    return {
+      dataUrl,
+      name: file.name || 'bukti-transfer',
+      type: file.type || 'application/octet-stream',
+      size: Number(file.size || 0)
+    };
+  }
+  ctx.drawImage(image, 0, 0, width, height);
+  const outputType = 'image/jpeg';
+  const dataUrl = canvas.toDataURL(outputType, quality);
+  const optimizedSize = estimateDataUrlBytes(dataUrl);
+
+  if (optimizedSize >= Number(file.size || 0) * 0.95) {
+    const originalDataUrl = await readFileAsDataUrl(file);
+    return {
+      dataUrl: originalDataUrl,
+      name: file.name || 'bukti-transfer',
+      type: file.type || 'application/octet-stream',
+      size: Number(file.size || 0)
+    };
+  }
+
+  return {
+    dataUrl,
+    name: renameFileExtension(file.name, 'jpg'),
+    type: outputType,
+    size: optimizedSize
+  };
+}
+async function getProofPayload(inputId, options = {}) {
+  const file = document.getElementById(inputId)?.files?.[0];
+  const required = Boolean(options.required);
+  if (!file) {
+    if (required) throw new Error('Upload bukti transfer dulu sebelum kirim.');
+    return { text: 'Tidak ada file', dataUrl: '', name: '', type: '', size: 0 };
+  }
+  const maxBytes = Number(options.maxBytes || (4 * 1024 * 1024));
+  if (file.size > maxBytes) {
+    throw new Error(`Ukuran file terlalu besar. Maksimal ${formatFileSize(maxBytes)}.`);
+  }
+  const optimized = await optimizeProofFile(file, options);
+  return {
+    text: `${optimized.name} | ${optimized.type || 'unknown'} | ${formatFileSize(optimized.size)}`,
+    dataUrl: optimized.dataUrl,
+    name: optimized.name || 'bukti-transfer',
+    type: optimized.type || 'application/octet-stream',
+    size: Number(optimized.size || 0)
+  };
+}
+function buildMailMessage(payload) {
+  return Object.entries(payload)
+    .filter(([key, value]) => !['proofDataUrl', 'proof_attachment', 'content', 'attachment'].includes(key) && typeof value !== 'object')
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('\n');
+}
+
+function openStoredProof(collection, id) {
+  const collectionMap = {
+    orders: getOrders,
+    deposits: getDeposits,
+    memberships: getMembershipRequests
+  };
+  const getter = collectionMap[collection];
+  if (!getter) return alert('Data bukti tidak ditemukan.');
+  const item = getter().find((row) => row.id === id);
+  if (!item?.proofDataUrl) return alert('File bukti belum tersedia di penyimpanan lokal.');
+  const win = window.open(item.proofDataUrl, '_blank', 'noopener,noreferrer');
+  if (!win) alert('Popup diblokir. Izinkan popup untuk melihat bukti transfer.');
 }
 function findProductPrice(packageName) {
   const found = findPackageByName(packageName);
@@ -8405,6 +8738,9 @@ function initNamarketApp() {
   renderAdminPage();
   updateDepositPreview();
   updateMembershipPreview();
+  bindProofInputs();
+  setPaymentPreview('paymentPreviewBox', 'qris');
+  syncPaymentModalState();
   // renderAllProducts(''); // ditunda sampai halaman produk dibuka
 }
 function switchAuthTab(mode) {
@@ -8426,12 +8762,13 @@ function registerUser() {
   setCurrentSession({ username });
   alert('Pendaftaran berhasil. Akun kamu sudah aktif.');
   renderUserPage();
-  renderAdminPage();
 }
 function loginUser() {
   const username = document.getElementById('loginUsername').value.trim();
   const password = document.getElementById('loginPassword').value.trim();
-  const user = getUsers().find(item => item.username === username && item.password === password);
+  if (!username || !password) return alert('Masukkan username dan password dulu.');
+  const users = getUsers();
+  const user = users.find(item => item.username === username && item.password === password);
   if (user) {
     setCurrentSession({ username: user.username });
     alert('Login berhasil.');
@@ -8450,14 +8787,12 @@ function loginUser() {
   }
   return alert('Username atau password salah.');
 }
-
 function logoutUser() {
   setCurrentSession(null);
   localStorage.removeItem(STORAGE_KEYS.adminSession);
   renderUserPage();
   renderAdminPage();
 }
-
 function renderUserPage() {
   const guest = document.getElementById('authGuestView');
   const logged = document.getElementById('authLoggedView');
@@ -8511,16 +8846,23 @@ function buildPaymentPreview(method) {
   return paymentMap[method] || paymentMap.qris;
 }
 
+function setPaymentPreview(boxId, method) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+  const selectedMethod = method || 'qris';
+  if (box.dataset.paymentMethod === selectedMethod) return;
+  box.dataset.paymentMethod = selectedMethod;
+  box.innerHTML = buildPaymentPreview(selectedMethod);
+}
+
 function updateDepositPreview() {
   const method = document.getElementById('depositMethod')?.value || 'qris';
-  const box = document.getElementById('depositPaymentPreview');
-  if (box) box.innerHTML = buildPaymentPreview(method);
+  setPaymentPreview('depositPaymentPreview', method);
 }
 
 function updateMembershipPreview() {
   const method = document.getElementById('membershipMethod')?.value || 'qris';
-  const box = document.getElementById('membershipPaymentPreview');
-  if (box) box.innerHTML = buildPaymentPreview(method);
+  setPaymentPreview('membershipPaymentPreview', method);
 }
 
 function renderMembershipPage() {
@@ -8536,8 +8878,20 @@ function renderMembershipPage() {
 }
 
 
-function openModalById(id) { document.getElementById(id)?.classList.add('show'); }
-function closeModalById(id) { document.getElementById(id)?.classList.remove('show'); }
+const PAYMENT_MODAL_IDS = ['orderModal', 'depositModal', 'membershipModal'];
+function syncPaymentModalState() {
+  const isPaymentModalOpen = PAYMENT_MODAL_IDS.some((modalId) => document.getElementById(modalId)?.classList.contains('show'));
+  document.body.classList.toggle('modal-open', isPaymentModalOpen);
+  document.body.classList.toggle('payment-modal-open', isPaymentModalOpen);
+}
+function openModalById(id) {
+  document.getElementById(id)?.classList.add('show');
+  syncPaymentModalState();
+}
+function closeModalById(id) {
+  document.getElementById(id)?.classList.remove('show');
+  syncPaymentModalState();
+}
 function closeOverlay(event, id) { if (event.target.id === id) closeModalById(id); }
 function openDepositModal() {
   warmAssetImage(STORE_ASSET_URLS.qris, "high");
@@ -8546,6 +8900,7 @@ function openDepositModal() {
     document.getElementById('depositUsername').value = user.username;
     document.getElementById('depositWhatsapp').value = user.whatsapp;
   }
+  resetProofField('depositProof');
   updateDepositPreview();
   openModalById('depositModal');
 }
@@ -8556,6 +8911,7 @@ function openMembershipModal(level) {
   document.getElementById('membershipLevelLabel').value = `${MEMBERSHIPS[level].label} - ${formatCurrency(MEMBERSHIPS[level].price)}`;
   document.getElementById('membershipUsername').value = user?.username || '';
   document.getElementById('membershipWhatsapp').value = user?.whatsapp || '';
+  resetProofField('membershipProof');
   updateMembershipPreview();
   openModalById('membershipModal');
 }
@@ -8580,6 +8936,7 @@ function orderNow(name) {
   document.getElementById('orderNotes').value = '';
   document.getElementById('orderPaymentMethod').value = 'qris';
   document.getElementById('orderMembership').innerText = MEMBERSHIPS[user?.membership || 'bronze'].label;
+  resetProofField('orderProof');
   updateOrderTotals();
   closeModal();
   openModalById('orderModal');
@@ -8593,7 +8950,7 @@ function updateOrderTotals() {
   document.getElementById('orderMembership').innerText = calc.membership;
   document.getElementById('orderTotal').innerText = formatCurrency(calc.total);
   const paymentMethod = document.getElementById('orderPaymentMethod').value;
-  document.getElementById('paymentPreviewBox').innerHTML = buildPaymentPreview(paymentMethod);
+  setPaymentPreview('paymentPreviewBox', paymentMethod);
 }
 
 function buildOrderCopyText(data) {
@@ -8630,22 +8987,26 @@ function copyCurrentOrder() {
 }
 async function sendEmail(type, payload) {
   if (!window.emailjs) return { ok: false, message: 'Sistem pengiriman sedang tidak tersedia.' };
-  const message = Object.entries(payload).map(([key, value]) => `${key}: ${value}`).join('\n');
   const params = {
     title: `${STORE_CONFIG.name} - ${type}`,
     subject: `${STORE_CONFIG.name} | ${type}`,
     name: payload.username || payload.whatsapp || 'Customer',
     customer_name: payload.username || payload.whatsapp || 'Customer',
     email: 'no-reply@namarket141.local',
-    message,
+    message: buildMailMessage(payload),
     order_type: type,
     store_name: STORE_CONFIG.name,
-    package_name: payload.packageName || '-',
+    package_name: payload.packageName || payload.level || '-',
     qty: payload.qty || '-',
-    total: payload.total ? formatCurrency(payload.total) : '-',
-    membership: payload.membership || '-',
+    total: payload.total ? formatCurrency(payload.total) : (payload.price ? formatCurrency(payload.price) : (payload.amount ? formatCurrency(payload.amount) : '-')),
+    membership: payload.membership || payload.level || '-',
     payment_method: payload.paymentMethod || payload.method || '-',
     proof: payload.proof || '-',
+    proof_name: payload.proofName || '-',
+    proof_type: payload.proofType || '-',
+    proof_size: payload.proofSize ? formatFileSize(payload.proofSize) : '-',
+    proof_attachment: payload.proofDataUrl || '',
+    content: payload.proofDataUrl || '',
     whatsapp: payload.whatsapp || '-',
     link_target: payload.linkTarget || '-'
   };
@@ -8654,100 +9015,126 @@ async function sendEmail(type, payload) {
     return { ok: true };
   } catch (error) {
     console.warn('EmailJS gagal', error);
-    return { ok: false, message: 'Pengiriman sedang terkendala, tapi data tetap tersimpan.' };
+    return { ok: false, message: 'Pengiriman email sedang terkendala, tapi data dan bukti transfer tetap tersimpan di perangkat admin.' };
   }
 }
 async function submitOrderForm() {
-  const packageName = document.getElementById('orderPackageRaw').value;
-  const whatsapp = document.getElementById('orderWhatsapp').value.trim();
-  const linkTarget = document.getElementById('orderTarget').value.trim();
-  const qty = Number(document.getElementById('orderQtyValue').innerText || 1);
-  const paymentMethod = document.getElementById('orderPaymentMethod').value;
-  const notes = document.getElementById('orderNotes').value.trim();
-  if (!packageName || !whatsapp || !linkTarget) return alert('Nomor WhatsApp aktif, link target, dan produk wajib diisi.');
-  const basePrice = findProductPrice(packageName);
-  const calc = calculateOrderTotal(basePrice, qty);
-  const proof = proofMetadata('orderProof');
-  const user = getCurrentUser();
-  if (paymentMethod === 'saldo') {
-    if (!user) return alert('Login dulu untuk memakai saldo akun.');
-    if (Number(user.saldo || 0) < calc.total) return alert('Saldo akun tidak cukup. Silakan deposit dulu.');
-    user.saldo = Number(user.saldo || 0) - calc.total;
-    upsertUser(user);
+  try {
+    const packageName = document.getElementById('orderPackageRaw').value;
+    const whatsapp = document.getElementById('orderWhatsapp').value.trim();
+    const linkTarget = document.getElementById('orderTarget').value.trim();
+    const qty = Number(document.getElementById('orderQtyValue').innerText || 1);
+    const paymentMethod = document.getElementById('orderPaymentMethod').value;
+    const notes = document.getElementById('orderNotes').value.trim();
+    if (!packageName || !whatsapp || !linkTarget) return alert('Nomor WhatsApp aktif, link target, dan produk wajib diisi.');
+    const basePrice = findProductPrice(packageName);
+    const calc = calculateOrderTotal(basePrice, qty);
+    const user = getCurrentUser();
+    const proofPayload = paymentMethod === 'saldo' ? { text: 'Tidak perlu bukti transfer', dataUrl: '', name: '', type: '', size: 0 } : await getProofPayload('orderProof', { required: true });
+    if (paymentMethod === 'saldo') {
+      if (!user) return alert('Login dulu untuk memakai saldo akun.');
+      if (Number(user.saldo || 0) < calc.total) return alert('Saldo akun tidak cukup. Silakan deposit dulu.');
+      user.saldo = Number(user.saldo || 0) - calc.total;
+      upsertUser(user);
+    }
+    const order = {
+      id: `ORD-${Date.now()}`,
+      username: user?.username || 'guest',
+      whatsapp,
+      linkTarget,
+      packageName,
+      qty,
+      membership: calc.membership,
+      paymentMethod,
+      total: calc.total,
+      proof: proofPayload.text,
+      proofDataUrl: proofPayload.dataUrl,
+      proofName: proofPayload.name,
+      proofType: proofPayload.type,
+      proofSize: proofPayload.size,
+      notes,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    };
+    const orders = getOrders();
+    orders.push(order);
+    setOrders(orders);
+    const mail = await sendEmail('ORDER', order);
+    closeModalById('orderModal');
+    alert(mail.ok ? 'Order berhasil dikirim.' : mail.message || 'Order berhasil dibuat.');
+    renderUserPage();
+    renderAdminPage();
+  } catch (error) {
+    alert(error?.message || 'Kirim order gagal. Coba lagi.');
   }
-  const order = {
-    id: `ORD-${Date.now()}`,
-    username: user?.username || 'guest',
-    whatsapp,
-    linkTarget,
-    packageName,
-    qty,
-    membership: calc.membership,
-    paymentMethod,
-    total: calc.total,
-    proof,
-    notes,
-    status: 'pending',
-    createdAt: new Date().toISOString()
-  };
-  const orders = getOrders();
-  orders.push(order);
-  setOrders(orders);
-  const mail = await sendEmail('ORDER', order);
-  closeModalById('orderModal');
-  alert(mail.ok ? 'Order berhasil dikirim.' : mail.message || 'Order berhasil dibuat.');
-  renderUserPage();
-  renderAdminPage();
 }
 async function submitDepositForm() {
-  const username = document.getElementById('depositUsername').value.trim();
-  const whatsapp = document.getElementById('depositWhatsapp').value.trim();
-  const amount = Number(document.getElementById('depositAmount').value || 0);
-  const method = document.getElementById('depositMethod').value;
-  if (!username || !whatsapp || !amount) return alert('Lengkapi data deposit dulu.');
-  const deposit = {
-    id: `DEP-${Date.now()}`,
-    username,
-    whatsapp,
-    amount,
-    method,
-    proof: proofMetadata('depositProof'),
-    status: 'pending',
-    createdAt: new Date().toISOString()
-  };
-  const deposits = getDeposits();
-  deposits.push(deposit);
-  setDeposits(deposits);
-  const mail = await sendEmail('DEPOSIT', deposit);
-  closeModalById('depositModal');
-  alert(mail.ok ? 'Request deposit berhasil dikirim.' : mail.message || 'Request deposit berhasil dibuat.');
-  renderUserPage();
-  renderAdminPage();
+  try {
+    const username = document.getElementById('depositUsername').value.trim();
+    const whatsapp = document.getElementById('depositWhatsapp').value.trim();
+    const amount = Number(document.getElementById('depositAmount').value || 0);
+    const method = document.getElementById('depositMethod').value;
+    if (!username || !whatsapp || !amount) return alert('Lengkapi data deposit dulu.');
+    const proofPayload = await getProofPayload('depositProof', { required: true });
+    const deposit = {
+      id: `DEP-${Date.now()}`,
+      username,
+      whatsapp,
+      amount,
+      method,
+      proof: proofPayload.text,
+      proofDataUrl: proofPayload.dataUrl,
+      proofName: proofPayload.name,
+      proofType: proofPayload.type,
+      proofSize: proofPayload.size,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    };
+    const deposits = getDeposits();
+    deposits.push(deposit);
+    setDeposits(deposits);
+    const mail = await sendEmail('DEPOSIT', deposit);
+    closeModalById('depositModal');
+    alert(mail.ok ? 'Request deposit berhasil dikirim.' : mail.message || 'Request deposit berhasil dibuat.');
+    renderUserPage();
+    renderAdminPage();
+  } catch (error) {
+    alert(error?.message || 'Kirim deposit gagal. Coba lagi.');
+  }
 }
 async function submitMembershipForm() {
-  const username = document.getElementById('membershipUsername').value.trim();
-  const whatsapp = document.getElementById('membershipWhatsapp').value.trim();
-  const level = document.getElementById('membershipTargetLevel').value;
-  const method = document.getElementById('membershipMethod').value;
-  if (!username || !whatsapp || !level) return alert('Lengkapi request membership dulu.');
-  const item = {
-    id: `MEM-${Date.now()}`,
-    username,
-    whatsapp,
-    level,
-    method,
-    price: MEMBERSHIPS[level].price,
-    proof: proofMetadata('membershipProof'),
-    status: 'pending',
-    createdAt: new Date().toISOString()
-  };
-  const reqs = getMembershipRequests();
-  reqs.push(item);
-  setMembershipRequests(reqs);
-  const mail = await sendEmail('MEMBERSHIP', item);
-  closeModalById('membershipModal');
-  alert(mail.ok ? 'Request membership berhasil dikirim.' : mail.message || 'Request membership berhasil dibuat.');
-  renderAdminPage();
+  try {
+    const username = document.getElementById('membershipUsername').value.trim();
+    const whatsapp = document.getElementById('membershipWhatsapp').value.trim();
+    const level = document.getElementById('membershipTargetLevel').value;
+    const method = document.getElementById('membershipMethod').value;
+    if (!username || !whatsapp || !level) return alert('Lengkapi request membership dulu.');
+    const proofPayload = await getProofPayload('membershipProof', { required: true });
+    const item = {
+      id: `MEM-${Date.now()}`,
+      username,
+      whatsapp,
+      level,
+      method,
+      price: MEMBERSHIPS[level].price,
+      proof: proofPayload.text,
+      proofDataUrl: proofPayload.dataUrl,
+      proofName: proofPayload.name,
+      proofType: proofPayload.type,
+      proofSize: proofPayload.size,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    };
+    const reqs = getMembershipRequests();
+    reqs.push(item);
+    setMembershipRequests(reqs);
+    const mail = await sendEmail('MEMBERSHIP', item);
+    closeModalById('membershipModal');
+    alert(mail.ok ? 'Request membership berhasil dikirim.' : mail.message || 'Request membership berhasil dibuat.');
+    renderAdminPage();
+  } catch (error) {
+    alert(error?.message || 'Kirim request membership gagal. Coba lagi.');
+  }
 }
 function adminLogin() {
   const usernameInput = document.getElementById('adminUsername') || document.getElementById('adminUsernameInline');
@@ -8848,15 +9235,15 @@ function renderAdminPage() {
     </div>
     <div class="list-card">
       <h3 style="margin-bottom:10px;">Order Masuk</h3>
-      ${orders.length ? orders.map(item => `<div class="list-row"><strong>${item.packageName}</strong><br><span class="helper-text">${item.username} • Qty ${item.qty} • ${formatCurrency(item.total)} • ${String(item.paymentMethod || '').toUpperCase()}</span><br><span class="helper-text">WA ${item.whatsapp} | Link ${item.linkTarget}</span><br><span class="helper-text">Bukti: ${item.proof}</span><div class="btn-row" style="margin-top:10px;"><button class="secondary-btn" onclick="setOrderStatus('${item.id}','process')">Process</button><button class="secondary-btn" onclick="setOrderStatus('${item.id}','done')">Done</button></div><span class="status-pill">${capitalize(item.status)}</span></div>`).join('') : '<div class="empty-state">Belum ada order.</div>'}
+      ${orders.length ? orders.map(item => `<div class="list-row"><strong>${item.packageName}</strong><br><span class="helper-text">${item.username} • Qty ${item.qty} • ${formatCurrency(item.total)} • ${String(item.paymentMethod || '').toUpperCase()}</span><br><span class="helper-text">WA ${item.whatsapp} | Link ${item.linkTarget}</span><br><span class="helper-text">Bukti: ${item.proof}</span><div class="btn-row" style="margin-top:10px;">${item.proofDataUrl ? `<button class="secondary-btn" onclick="openStoredProof('orders','${item.id}')">Lihat Bukti</button>` : ''}<button class="secondary-btn" onclick="setOrderStatus('${item.id}','process')">Process</button><button class="secondary-btn" onclick="setOrderStatus('${item.id}','done')">Done</button></div><span class="status-pill">${capitalize(item.status)}</span></div>`).join('') : '<div class="empty-state">Belum ada order.</div>'}
     </div>
     <div class="list-card">
       <h3 style="margin-bottom:10px;">Deposit Masuk</h3>
-      ${deposits.length ? deposits.map(item => `<div class="list-row"><strong>${item.username}</strong><br><span class="helper-text">${formatCurrency(item.amount)} • ${item.method.toUpperCase()} • ${item.whatsapp}</span><br><span class="helper-text">Bukti: ${item.proof}</span><div class="btn-row" style="margin-top:10px;"><button class="secondary-btn" onclick="approveDeposit('${item.id}')">Approve Deposit</button></div><span class="status-pill">${capitalize(item.status)}</span></div>`).join('') : '<div class="empty-state">Belum ada deposit.</div>'}
+      ${deposits.length ? deposits.map(item => `<div class="list-row"><strong>${item.username}</strong><br><span class="helper-text">${formatCurrency(item.amount)} • ${item.method.toUpperCase()} • ${item.whatsapp}</span><br><span class="helper-text">Bukti: ${item.proof}</span><div class="btn-row" style="margin-top:10px;">${item.proofDataUrl ? `<button class="secondary-btn" onclick="openStoredProof('deposits','${item.id}')">Lihat Bukti</button>` : ''}<button class="secondary-btn" onclick="approveDeposit('${item.id}')">Approve Deposit</button></div><span class="status-pill">${capitalize(item.status)}</span></div>`).join('') : '<div class="empty-state">Belum ada deposit.</div>'}
     </div>
     <div class="list-card">
       <h3 style="margin-bottom:10px;">Request Membership</h3>
-      ${memberships.length ? memberships.map(item => `<div class="list-row"><strong>${item.username}</strong><br><span class="helper-text">${capitalize(item.level)} • ${formatCurrency(item.price)} • ${item.method.toUpperCase()}</span><br><span class="helper-text">Bukti: ${item.proof}</span><div class="btn-row" style="margin-top:10px;"><button class="secondary-btn" onclick="setMembershipForUser('${item.username}','${item.level}')">Approve ${capitalize(item.level)}</button></div><span class="status-pill">${capitalize(item.status)}</span></div>`).join('') : '<div class="empty-state">Belum ada request membership.</div>'}
+      ${memberships.length ? memberships.map(item => `<div class="list-row"><strong>${item.username}</strong><br><span class="helper-text">${capitalize(item.level)} • ${formatCurrency(item.price)} • ${item.method.toUpperCase()}</span><br><span class="helper-text">Bukti: ${item.proof}</span><div class="btn-row" style="margin-top:10px;">${item.proofDataUrl ? `<button class="secondary-btn" onclick="openStoredProof('memberships','${item.id}')">Lihat Bukti</button>` : ''}<button class="secondary-btn" onclick="setMembershipForUser('${item.username}','${item.level}')">Approve ${capitalize(item.level)}</button></div><span class="status-pill">${capitalize(item.status)}</span></div>`).join('') : '<div class="empty-state">Belum ada request membership.</div>'}
     </div>
   `;
 }
