@@ -468,14 +468,19 @@ body.product-page {
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   z-index: 4000;
 }
 .modal-overlay.show { display: flex; }
 .modal-card {
   width: min(560px, 100%);
-  max-height: 92vh;
+  max-height: calc(100dvh - 32px);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -1121,10 +1126,156 @@ body.product-page {
   }
 </style>
 
+<style id="release-ready-polish">
+  .qris-preview{
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .proof-status{
+    display: none;
+    font-size: .82rem;
+    color: var(--text-main);
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+  .item-card,
+  .package-card,
+  .feature-card,
+  .form-card,
+  .list-card,
+  .member-card,
+  .summary-box,
+  .note-box,
+  .modal-card,
+  .quick-action-btn{
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+  }
+  .item-card:hover,
+  .package-card:hover,
+  .feature-card:hover,
+  .member-card:hover,
+  .quick-action-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 18px 34px rgba(0,0,0,.22);
+  }
+  .btn-animated,
+  .secondary-btn,
+  .danger-btn,
+  .ghost-btn,
+  .control-btn,
+  .list-btn,
+  .filter-btn,
+  .auth-tab,
+  .qty-btn,
+  .modal-close,
+  .soc-btn,
+  .floating-home{
+    transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease, background .14s ease;
+  }
+  .btn-animated:active,
+  .secondary-btn:active,
+  .danger-btn:active,
+  .ghost-btn:active,
+  .control-btn:active,
+  .list-btn:active,
+  .filter-btn:active,
+  .auth-tab:active,
+  .qty-btn:active,
+  .modal-close:active,
+  .soc-btn:active,
+  .floating-home:active,
+  .quick-action-btn:active{
+    transform: scale(.985);
+  }
+  .search-input,
+  .text-input,
+  .text-select,
+  .text-area{
+    min-height: 50px;
+  }
+  .text-area{
+    min-height: 110px;
+  }
+  .field-group label{
+    font-size: .82rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+  .note-box{
+    line-height: 1.55;
+  }
+  .release-strip,
+  .membership-hero{
+    padding: 18px 18px !important;
+  }
+  .release-strip h3,
+  .membership-hero h3{
+    font-size: 1.08rem;
+    line-height: 1.4;
+  }
+  .release-strip p,
+  .membership-hero p,
+  .feature-card p{
+    font-size: .92rem;
+  }
+  .quick-actions{
+    gap: 10px;
+  }
+  .quick-action-btn i,
+  .control-btn i,
+  .filter-btn i,
+  .sidebar-item i{
+    opacity: .92;
+  }
+  .section-title{
+    letter-spacing: .01em;
+  }
+  .modal-card{
+    overflow: hidden;
+  }
+  .summary-line.total strong{
+    letter-spacing: .01em;
+  }
+  .item-title,
+  .list-name,
+  .pkg-name{
+    text-wrap: balance;
+  }
+  @media (max-width: 760px){
+    .container{
+      padding-top: 10px;
+    }
+    .section-header{
+      margin-bottom: 10px;
+    }
+    .app-grid{
+      gap: 10px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .list-item,
+    .list-card,
+    .release-strip,
+    .membership-hero,
+    .controls-row,
+    .search-container,
+    .filter-scroll,
+    .section-header,
+    .info-grid,
+    .quick-actions{
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+  }
+</style>
+
 <style id="payment-flow-performance-fix">
   body.modal-open{
     overflow:hidden;
-    touch-action:none;
     overscroll-behavior:contain;
   }
   body.payment-modal-open #heroBannerTrackV7,
@@ -1145,6 +1296,11 @@ body.product-page {
     background: rgba(0,0,0,.76) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-top: max(16px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
   }
   #orderModal .modal-card,
   #depositModal .modal-card,
@@ -1152,6 +1308,11 @@ body.product-page {
     contain: layout paint style;
     transform: translateZ(0);
     will-change: transform, opacity;
+    margin: auto;
+    max-height: calc(100dvh - 32px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     box-shadow: 0 14px 32px rgba(0,0,0,.34) !important;
   }
   #orderModal .modal-card-header,
@@ -1184,6 +1345,42 @@ body.product-page {
   }
 </style>
 
+<style id="checkout-ux-performance-fix">
+  .banner-img{transform:translateZ(0);}
+  .btn-animated[disabled], .secondary-btn[disabled], .ghost-btn[disabled]{
+    opacity:.72 !important;
+    pointer-events:none !important;
+    filter:saturate(.9);
+  }
+  .field-group input[type="file"]{
+    min-height:48px;
+  }
+  @media (max-width: 760px){
+    #orderModal.modal-overlay,
+    #depositModal.modal-overlay,
+    #membershipModal.modal-overlay{
+      justify-content:center;
+      align-items:flex-start !important;
+      padding-left:12px !important;
+      padding-right:12px !important;
+      padding-top:max(12px, env(safe-area-inset-top)) !important;
+      padding-bottom:max(12px, env(safe-area-inset-bottom)) !important;
+    }
+    #orderModal .modal-card,
+    #depositModal .modal-card,
+    #membershipModal .modal-card{
+      width:min(100%, 560px);
+      max-height:calc(100dvh - 24px) !important;
+      border-radius:18px;
+    }
+    #orderModal .modal-card-body,
+    #depositModal .modal-card-body,
+    #membershipModal .modal-card-body{
+      padding:16px;
+    }
+  }
+</style>
+
 </head>
 <body>
 <div class="statusbar-space"></div>
@@ -1192,7 +1389,7 @@ body.product-page {
     <div id="introOverlay" onclick="openApp()">
     <img src="https://files.catbox.moe/7sv735.png" class="intro-logo" alt="Logo NAMARKET141" width="100" height="100" loading="lazy" decoding="async" fetchpriority="low">
     <div class="intro-text">NAMARKET141</div>
-    <small style="margin-top:10px; color:#aaa;">Tap untuk buka store</small>
+    
 </div>
 </div>
 
@@ -1209,7 +1406,7 @@ body.product-page {
             <div class="sidebar-item shiny-effect" onclick="openDepositModal()"><i class="fas fa-wallet"></i> Deposit</div>
             <div class="sidebar-item shiny-effect" onclick="navTo('membership-page')"><i class="fas fa-medal"></i> Membership</div>
             <div class="sidebar-item shiny-effect" onclick="navTo('logojb-page')"><i class="fas fa-image"></i> Logo JB</div>
-                        <div class="sidebar-item shiny-effect" onclick="navTo('apkprem-page')"><i class="fas fa-crown"></i> Apk Prem Murmer</div>
+                        <div class="sidebar-item shiny-effect" onclick="navTo('apkprem-page')"><i class="fas fa-crown"></i> Produk Digital</div>
                         <div class="sidebar-item shiny-effect" onclick="toggleMode()"><i class="fas fa-adjust"></i> Dark/Light Mode</div>
             <div class="sidebar-item shiny-effect" onclick="toggleDesktopMode()" id="desktopBtn">
     <i class="fas fa-desktop"></i> Desktop Mode
@@ -1238,10 +1435,13 @@ body.product-page {
       <img src="https://files.catbox.moe/ji6qnh.png?v=20260416v7" class="banner-img" alt="Banner 1 NAMARKET141" width="1280" height="480" loading="eager" decoding="async" fetchpriority="high">
     </div>
     <div class="banner-item">
-      <img src="https://files.catbox.moe/bxwrgc.png?v=20260416v7" class="banner-img" alt="Banner 2 NAMARKET141" width="1280" height="480" loading="eager" decoding="async" fetchpriority="high">
+      <img src="https://files.catbox.moe/bxwrgc.png?v=20260416v7" class="banner-img" alt="Banner 2 NAMARKET141" width="1280" height="480" loading="lazy" decoding="async" fetchpriority="low">
     </div>
     <div class="banner-item">
-      <img src="https://files.catbox.moe/t0yleb.png?v=20260416v7" class="banner-img" alt="Banner 3 NAMARKET141" width="1280" height="480" loading="eager" decoding="async" fetchpriority="high">
+      <img src="https://files.catbox.moe/t0yleb.png?v=20260416v7" class="banner-img" alt="Banner 3 NAMARKET141" width="1280" height="480" loading="lazy" decoding="async" fetchpriority="low">
+    </div>
+    <div class="banner-item">
+      <img src="https://files.catbox.moe/jlellm.png" class="banner-img" alt="Banner 4 NAMARKET141" width="1280" height="480" loading="lazy" decoding="async" fetchpriority="low">
     </div>
   </div>
 </div>
@@ -1270,8 +1470,8 @@ body.product-page {
 
             <div id="sosmedSection" style="margin-top: 16px;">
                 <div class="release-strip">
-                    <h3>Store suntik sosmed yang simple, rapi, dan siap order.</h3>
-                    <p>Pilih platform, tentukan paket, isi data order, lalu lanjutkan pembayaran dengan metode yang paling nyaman buat kamu.</p>
+                    <h3>Pilih layanan yang kamu butuhkan, isi data, lalu lanjut bayar.</h3>
+                    <p>Proses dibuat cepat, simpel, dan nyaman dipakai.</p>
                 </div>
             </div>
 
@@ -1289,12 +1489,12 @@ body.product-page {
             </div>
             <div class="info-grid">
                 <div class="feature-card">
-                    <h4><i class="fas fa-list-check"></i> Data order yang dibutuhkan</h4>
-                    <p>Nomor WhatsApp aktif, link target, jumlah order, lalu pilih metode pembayaran yang kamu mau.</p>
+                    <h4><i class="fas fa-list-check"></i> Order lebih cepat</h4>
+                    <p>Cukup isi nomor WhatsApp, link target, dan jumlah pesanan.</p>
                 </div>
                 <div class="feature-card">
-                    <h4><i class="fas fa-qrcode"></i> Pembayaran fleksibel</h4>
-                    <p>QRIS, DANA, GOPAY, OVO, dan saldo akun tersedia langsung saat checkout supaya proses lebih praktis.</p>
+                    <h4><i class="fas fa-qrcode"></i> Pembayaran mudah</h4>
+                    <p>Tersedia QRIS, DANA, GOPAY, OVO, dan saldo akun.</p>
                 </div>
             </div>
 
@@ -1312,8 +1512,8 @@ body.product-page {
         <div class="section-title">Suntik Sosmed</div>
     </div>
     <div class="coming-soon" onclick="navTo('home')" style="cursor:pointer;">
-        <h3>SEMUA LAYANAN ADA DI HOME</h3>
-        <p style="color:var(--text-sec)">Tap untuk kembali ke katalog suntik sosmed.</p>
+        <h3>Semua layanan ada di halaman utama</h3>
+        <p style="color:var(--text-sec)">Tap untuk kembali ke katalog.</p>
     </div>
 </div>
 
@@ -1398,8 +1598,8 @@ body.product-page {
             <div class="section-header"><div class="section-title">Membership</div></div>
             <div id="membershipPageStatus" class="membership-status"></div>
             <div class="membership-hero">
-                <h3 style="margin-bottom:8px;">Pilih membership yang paling cocok buat kebutuhan kamu.</h3>
-                <p class="helper-text">Semakin tinggi tier, semakin besar potongan harga otomatis saat checkout.</p>
+                <h3 style="margin-bottom:8px;">Pilih membership yang paling pas buat kamu.</h3>
+                <p class="helper-text">Nikmati potongan harga otomatis di setiap pesanan.</p>
             </div>
             <div class="membership-grid" style="padding:0 20px 20px;">
                 <div class="member-card member-bronze">
@@ -1436,17 +1636,17 @@ body.product-page {
         <div id="page-logojb" class="page-section" style="display:none;">
             <div class="section-header"><div class="section-title">Logo JB</div></div>
             <div class="release-strip">
-                <h3>Katalog Logo JB siap pilih dan langsung order.</h3>
-                <p>Pilih logo yang kamu suka, buka detailnya, lalu langsung lanjut order seperti produk lain. Semua logo di halaman ini dipasang dengan harga yang sama.</p>
+                <h3>Pilih logo yang kamu suka lalu langsung order.</h3>
+                <p>Semua logo di halaman ini punya harga yang sama.</p>
             </div>
             <div id="logoJbGrid" class="app-grid"></div>
         </div>
 
         <div id="page-apkprem" class="page-section" style="display:none;">
-            <div class="section-header"><div class="section-title">Apk Prem Murmer</div></div>
+            <div class="section-header"><div class="section-title">Produk Digital</div></div>
             <div class="release-strip">
-                <h3>Katalog APK premium murah siap pilih dan langsung order.</h3>
-                <p>Pilih aplikasi yang kamu butuhkan, buka detail paketnya, lalu lanjut order seperti produk lain. Paket dengan beberapa opsi tetap dipisah biar lebih jelas saat checkout.</p>
+                <h3>Pilih produk digital yang kamu butuhkan lalu langsung order.</h3>
+                <p>Setiap paket dibuat jelas supaya lebih gampang dipilih.</p>
             </div>
             <div id="apkPremGrid" class="app-grid"></div>
         </div>
@@ -1463,8 +1663,7 @@ body.product-page {
             <div class="modal-card" onclick="event.stopPropagation()">
                 <div class="modal-card-header">
                     <div>
-                        <strong>Form Order Suntik Sosmed NAMARKET141</strong>
-                        <div class="helper-text">Isi data order dengan lengkap agar pesanan lebih cepat diproses.</div>
+                        <strong>Checkout Pesanan</strong>
                     </div>
                     <button class="modal-close" onclick="closeModalById('orderModal')">&times;</button>
                 </div>
@@ -1499,17 +1698,17 @@ body.product-page {
                     </div>
                     <div class="field-group">
                         <label>Detail Pembayaran</label>
-                        <div class="note-box" id="paymentPreviewBox">QRIS: scan QR di homepage. DANA 089676168282, GOPAY 089673783771, OVO 089673783771.</div>
+                        <div class="note-box" id="paymentPreviewBox">Scan QRIS atau pilih metode pembayaran lain.</div>
                     </div>
                     <div class="field-group">
                         <label>Upload Bukti Transfer</label>
                         <input id="orderProof" type="file" class="text-input" accept="image/*,.pdf">
-                        <div id="orderProofStatus" class="helper-text proof-status" style="margin-top:8px;">Belum ada file dipilih.</div>
-                        <div class="helper-text" style="margin-top:8px;">Upload bukti transfer untuk mempermudah verifikasi pembayaran. Gambar otomatis diringankan supaya proses checkout lebih ringan.</div>
+                        <div id="orderProofStatus" class="helper-text proof-status" style="margin-top:8px;"></div>
+                        
                     </div>
                     <div class="field-group"><label>Catatan Tambahan</label><textarea id="orderNotes" class="text-area" placeholder="Opsional"></textarea></div>
                     <div class="btn-row">
-                        <button class="secondary-btn" onclick="copyCurrentOrder()">Salin Format</button>
+                        <button class="secondary-btn" onclick="copyCurrentOrder()">Salin Detail</button>
                         <button class="btn-animated" onclick="submitOrderForm()">Kirim Order</button>
                     </div>
                 </div>
@@ -1521,7 +1720,6 @@ body.product-page {
                 <div class="modal-card-header">
                     <div>
                         <strong>Deposit Saldo</strong>
-                        <div class="helper-text">Isi nominal deposit dan pilih metode pembayaran yang kamu inginkan.</div>
                     </div>
                     <button class="modal-close" onclick="closeModalById('depositModal')">&times;</button>
                 </div>
@@ -1530,7 +1728,7 @@ body.product-page {
                     <div class="field-group"><label>Nomor WhatsApp Aktif</label><input id="depositWhatsapp" class="text-input" placeholder="08xxxxxxxxxx"></div>
                     <div class="field-group"><label>Nominal Deposit</label><input id="depositAmount" type="number" min="1000" class="text-input" placeholder="Contoh 50000"></div>
                     <div class="field-group"><label>Metode Transfer</label><select id="depositMethod" class="text-select" onchange="updateDepositPreview()"><option value="qris">QRIS</option><option value="dana">DANA</option><option value="gopay">GOPAY</option><option value="ovo">OVO</option></select></div><div class="field-group"><label>Detail Pembayaran</label><div class="note-box" id="depositPaymentPreview"></div></div>
-                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="depositProof" type="file" class="text-input" accept="image/*,.pdf"><div id="depositProofStatus" class="helper-text proof-status" style="margin-top:8px;">Belum ada file dipilih.</div><div class="helper-text" style="margin-top:8px;">Upload bukti transfer untuk membantu verifikasi deposit. Gambar otomatis diringankan supaya proses lebih cepat.</div></div>
+                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="depositProof" type="file" class="text-input" accept="image/*,.pdf"><div id="depositProofStatus" class="helper-text proof-status" style="margin-top:8px;"></div></div>
                     <button class="btn-animated" onclick="submitDepositForm()">Kirim Deposit</button>
                 </div>
             </div>
@@ -1541,7 +1739,6 @@ body.product-page {
                 <div class="modal-card-header">
                     <div>
                         <strong>Beli Membership</strong>
-                        <div class="helper-text">Pilih tier membership lalu lanjutkan pembayaran sesuai metode yang dipilih.</div>
                     </div>
                     <button class="modal-close" onclick="closeModalById('membershipModal')">&times;</button>
                 </div>
@@ -1551,7 +1748,7 @@ body.product-page {
                     <div class="field-group"><label>Nomor WhatsApp Aktif</label><input id="membershipWhatsapp" class="text-input" placeholder="08xxxxxxxxxx"></div>
                     <div class="field-group"><label>Paket Membership</label><input id="membershipLevelLabel" class="text-input" readonly></div>
                     <div class="field-group"><label>Metode Transfer</label><select id="membershipMethod" class="text-select" onchange="updateMembershipPreview()"><option value="qris">QRIS</option><option value="dana">DANA</option><option value="gopay">GOPAY</option><option value="ovo">OVO</option></select></div><div class="field-group"><label>Detail Pembayaran</label><div class="note-box" id="membershipPaymentPreview"></div></div>
-                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="membershipProof" type="file" class="text-input" accept="image/*,.pdf"><div id="membershipProofStatus" class="helper-text proof-status" style="margin-top:8px;">Belum ada file dipilih.</div><div class="helper-text" style="margin-top:8px;">Gambar bukti transfer otomatis diringankan sebelum dikirim.</div></div>
+                    <div class="field-group"><label>Upload Bukti Transfer</label><input id="membershipProof" type="file" class="text-input" accept="image/*,.pdf"><div id="membershipProofStatus" class="helper-text proof-status" style="margin-top:8px;"></div></div>
                     <button class="btn-animated" onclick="submitMembershipForm()">Kirim Request Membership</button>
                 </div>
             </div>
@@ -1592,9 +1789,33 @@ body.product-page {
         <div class="modal-content" id="modalBody"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>
-function playClick() {}
+        <script>
+let __clickAudioCtx = null;
+let __lastClickAt = 0;
+function playClick() {
+  const now = Date.now();
+  if (now - __lastClickAt < 45) return;
+  __lastClickAt = now;
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!__clickAudioCtx) __clickAudioCtx = new AudioCtx();
+    if (__clickAudioCtx.state === 'suspended') __clickAudioCtx.resume();
+    const ctx = __clickAudioCtx;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(620, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(420, ctx.currentTime + 0.045);
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.045, ctx.currentTime + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.065);
+  } catch (error) {}
+}
 </script>
 
     <script>
@@ -1603,7 +1824,8 @@ const STORE_ASSET_URLS = {
   banner1: 'https://files.catbox.moe/ji6qnh.png?v=20260416v7',
   banner2: 'https://files.catbox.moe/bxwrgc.png?v=20260416v7',
   banner3: 'https://files.catbox.moe/t0yleb.png?v=20260416v7',
-  qris: 'https://files.catbox.moe/p367yt.jpg'
+  banner4: 'https://files.catbox.moe/jlellm.png',
+  qris: 'https://files.catbox.moe/riajq8.jpg'
 };
 
 function warmAssetImage(url, priority = 'low') {
@@ -1650,182 +1872,767 @@ document.addEventListener('visibilitychange', () => {
                 
         const logoJBData = [
           {
-            id: "logo_jb_1",
-            name: "Logo JB 1",
-            cat: ["logojb"],
-            badge: "LOGO JB",
-            image: "https://files.catbox.moe/xkde1p.png",
-            packages: [
-              { id: "logo_jb_1_png", name: "File PNG", price: "Rp 2.000", priceVal: 2000 }
-            ]
+                    "id": "logo_jb_1",
+                    "name": "Logo JB 1",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/ql8ifu.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_1_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
           },
           {
-            id: "logo_jb_2",
-            name: "Logo JB 2",
-            cat: ["logojb"],
-            badge: "LOGO JB",
-            image: "https://files.catbox.moe/s9ye94.png",
-            packages: [
-              { id: "logo_jb_2_png", name: "File PNG", price: "Rp 2.000", priceVal: 2000 }
-            ]
+                    "id": "logo_jb_2",
+                    "name": "Logo JB 2",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/g1k9tn.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_2_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
           },
           {
-            id: "logo_jb_3",
-            name: "Logo JB 3",
-            cat: ["logojb"],
-            badge: "LOGO JB",
-            image: "https://files.catbox.moe/r63bxm.png",
-            packages: [
-              { id: "logo_jb_3_png", name: "File PNG", price: "Rp 2.000", priceVal: 2000 }
-            ]
+                    "id": "logo_jb_3",
+                    "name": "Logo JB 3",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/ab8437.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_3_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
           },
           {
-            id: "logo_jb_4",
-            name: "Logo JB 4",
-            cat: ["logojb"],
-            badge: "LOGO JB",
-            image: "https://files.catbox.moe/ywejtc.png",
-            packages: [
-              { id: "logo_jb_4_png", name: "File PNG", price: "Rp 2.000", priceVal: 2000 }
-            ]
+                    "id": "logo_jb_4",
+                    "name": "Logo JB 4",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/ww6kkh.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_4_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
           },
           {
-            id: "logo_jb_5",
-            name: "Logo JB 5",
-            cat: ["logojb"],
-            badge: "LOGO JB",
-            image: "https://files.catbox.moe/1xa433.png",
-            packages: [
-              { id: "logo_jb_5_png", name: "File PNG", price: "Rp 2.000", priceVal: 2000 }
-            ]
+                    "id": "logo_jb_5",
+                    "name": "Logo JB 5",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/85oyse.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_5_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
+          },
+          {
+                    "id": "logo_jb_6",
+                    "name": "Logo JB 6",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/xg7ldq.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_6_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
+          },
+          {
+                    "id": "logo_jb_7",
+                    "name": "Logo JB 7",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/dptvj5.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_7_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
+          },
+          {
+                    "id": "logo_jb_8",
+                    "name": "Logo JB 8",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/10ysqb.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_8_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
+          },
+          {
+                    "id": "logo_jb_9",
+                    "name": "Logo JB 9",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/ppugms.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_9_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
+          },
+          {
+                    "id": "logo_jb_10",
+                    "name": "Logo JB 10",
+                    "cat": [
+                              "logojb"
+                    ],
+                    "badge": "LOGO JB",
+                    "image": "https://files.catbox.moe/0kfyin.png",
+                    "packages": [
+                              {
+                                        "id": "logo_jb_10_png",
+                                        "name": "File PNG",
+                                        "price": "Rp 2.000",
+                                        "priceVal": 2000
+                              }
+                    ]
           }
-        ];
+];
 
 const apkPremData = [
           {
-            id: "apk_prem_alightmotion",
-            name: "Alight Motion",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/r5efm2.jpg",
-            packages: [
-              { id: "alightmotion_private_1tahun", name: "Private 1 Tahun", price: "Rp 15.000", priceVal: 15000 }
-            ]
+                    "id": "apk_prem_blackbox_ai",
+                    "name": "Blackbox AI",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "ai"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/jpy8a2.jpg",
+                    "packages": [
+                              {
+                                        "id": "blackbox_ai_1bulan",
+                                        "name": "1 Bulan",
+                                        "price": "Rp 24.000",
+                                        "priceVal": 24000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_canva",
-            name: "Canva",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/4l6acm.jpg",
-            packages: [
-              { id: "canva_member_3bulan", name: "Member 3 Bulan", price: "Rp 8.000", priceVal: 8000 }
-            ]
+                    "id": "apk_prem_apple_tv",
+                    "name": "Apple TV",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "streaming"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/zc9soc.png",
+                    "packages": [
+                              {
+                                        "id": "apple_tv_private_1bulan",
+                                        "name": "1 Bulan Private Server",
+                                        "price": "Rp 15.000",
+                                        "priceVal": 15000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_bstation",
-            name: "BStation",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/0nw38w.jpg",
-            packages: [
-              { id: "bstation_sharing_1bulan", name: "Sharing 1 Bulan", price: "Rp 12.000", priceVal: 12000 }
-            ]
+                    "id": "apk_prem_rcti_plus",
+                    "name": "RCTI+",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "streaming"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/wk0yf9.jpg",
+                    "packages": [
+                              {
+                                        "id": "rcti_plus_server1_1bulan",
+                                        "name": "1 Bulan Support Server 1",
+                                        "price": "Rp 26.000",
+                                        "priceVal": 26000
+                              },
+                              {
+                                        "id": "rcti_plus_server2_1bulan",
+                                        "name": "1 Bulan Support Server 2",
+                                        "price": "Rp 28.000",
+                                        "priceVal": 28000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_youtube",
-            name: "YouTube",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
-            packages: [
-              { id: "youtube_1bulan_seller", name: "1 Bulan Seller", price: "Rp 25.000", priceVal: 25000 }
-            ]
+                    "id": "apk_prem_netflix",
+                    "name": "Netflix",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "streaming"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/3hym61.jpg",
+                    "packages": [
+                              {
+                                        "id": "netflix_1profil_1user_1bulan",
+                                        "name": "1 Profil 1 User • 1 Bulan",
+                                        "price": "Rp 30.000",
+                                        "priceVal": 30000
+                              },
+                              {
+                                        "id": "netflix_1profil_1user_2bulan",
+                                        "name": "1 Profil 1 User • 2 Bulan",
+                                        "price": "Rp 60.000",
+                                        "priceVal": 60000
+                              },
+                              {
+                                        "id": "netflix_1profil_1user_3bulan",
+                                        "name": "1 Profil 1 User • 3 Bulan",
+                                        "price": "Rp 110.000",
+                                        "priceVal": 110000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_gimiai",
-            name: "Gimi AI",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/ibqz5y.jpg",
-            packages: [
-              { id: "gimiai_private_1seller", name: "Private 1 Seller", price: "Rp 27.000", priceVal: 27000 }
-            ]
+                    "id": "apk_prem_vidio",
+                    "name": "Vidio",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "streaming"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/slnpt0.png",
+                    "packages": [
+                              {
+                                        "id": "vidio_platinum_sharing_1bulan_server1",
+                                        "name": "All Device Platinum Sharing 1 Bulan Server 1",
+                                        "price": "Rp 23.000",
+                                        "priceVal": 23000
+                              },
+                              {
+                                        "id": "vidio_platinum_private_1bulan_server1",
+                                        "name": "All Device Platinum Private 1 Bulan Server 1",
+                                        "price": "Rp 40.000",
+                                        "priceVal": 40000
+                              },
+                              {
+                                        "id": "vidio_tv_platinum_sharing_1bulan",
+                                        "name": "TV Platinum Sharing 1 Bulan",
+                                        "price": "Rp 12.000",
+                                        "priceVal": 12000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_gmail",
-            name: "Gmail",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/j9iyhx.jpg",
-            packages: [
-              { id: "gmail_ready", name: "Ready Gmail", price: "Rp 2.000", priceVal: 2000 }
-            ]
+                    "id": "apk_prem_drakor_id",
+                    "name": "Drakor ID",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "streaming"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/5xyzz6.jpg",
+                    "packages": [
+                              {
+                                        "id": "drakor_id_1bulan",
+                                        "name": "1 Bulan",
+                                        "price": "Rp 15.000",
+                                        "priceVal": 15000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_melolo",
-            name: "Melolo",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/r99soj.jpg",
-            packages: [
-              { id: "melolo_sharing_1bulan", name: "Sharing 1 Bulan", price: "Rp 10.000", priceVal: 10000 }
-            ]
+                    "id": "apk_prem_chatgpt",
+                    "name": "ChatGPT",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "ai"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/zotakm.jpg",
+                    "packages": [
+                              {
+                                        "id": "chatgpt_sharing_1bulan_server1",
+                                        "name": "Sharing 1 Bulan Server 1",
+                                        "price": "Rp 26.000",
+                                        "priceVal": 26000
+                              },
+                              {
+                                        "id": "chatgpt_private_1bulan_server1",
+                                        "name": "Private 1 Bulan Server 1",
+                                        "price": "Rp 29.000",
+                                        "priceVal": 29000
+                              },
+                              {
+                                        "id": "chatgpt_sharing_1bulan_server4",
+                                        "name": "Sharing 1 Bulan Server 4",
+                                        "price": "Rp 31.000",
+                                        "priceVal": 31000
+                              },
+                              {
+                                        "id": "chatgpt_private_plus_1bulan",
+                                        "name": "Private Plus 1 Bulan",
+                                        "price": "Rp 66.000",
+                                        "priceVal": 66000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_donghub",
-            name: "Donghub",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/zrq76l.jpg",
-            packages: [
-              { id: "donghub_1bulan", name: "1 Bulan", price: "Rp 10.000", priceVal: 10000 }
-            ]
+                    "id": "produk_axis_data",
+                    "name": "Axis Data",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "data"
+                    ],
+                    "badge": "PULSA & DATA",
+                    "image": "https://files.catbox.moe/gciwbt.jpg",
+                    "packages": [
+                              {
+                                        "id": "axis_10gb_30hari",
+                                        "name": "Axis 10GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 15.000",
+                                        "priceVal": 15000
+                              },
+                              {
+                                        "id": "axis_20gb_30hari",
+                                        "name": "Axis 20GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 25.000",
+                                        "priceVal": 25000
+                              },
+                              {
+                                        "id": "axis_unlimited",
+                                        "name": "Axis Unlimited • FUP 5GB",
+                                        "price": "Rp 55.000",
+                                        "priceVal": 55000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_capcut",
-            name: "CapCut",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/2tz4bq.jpg",
-            packages: [
-              { id: "capcut_private_1minggu_server1", name: "Private 1 Minggu Server 1", price: "Rp 10.000", priceVal: 10000 },
-              { id: "capcut_private_1minggu_server2", name: "Private 1 Minggu Server 2", price: "Rp 12.000", priceVal: 12000 },
-              { id: "capcut_private_1bulan_server1", name: "Private 1 Bulan Server 1", price: "Rp 14.000", priceVal: 14000 }
-            ]
+                    "id": "produk_tri_data",
+                    "name": "Tri (3) Data",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "data"
+                    ],
+                    "badge": "PULSA & DATA",
+                    "image": "https://files.catbox.moe/0kd60s.jpg",
+                    "packages": [
+                              {
+                                        "id": "tri_5gb_30hari",
+                                        "name": "Tri 5GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "tri_10gb_30hari",
+                                        "name": "Tri 10GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "tri_unlimited",
+                                        "name": "Tri Unlimited • FUP 4GB",
+                                        "price": "Rp 50.000",
+                                        "priceVal": 50000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_brenyl",
-            name: "Brenyl",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/xi1hn7.jpg",
-            packages: [
-              { id: "brenyl_premium", name: "Premium", price: "Rp 15.000", priceVal: 15000 }
-            ]
+                    "id": "produk_smartfren_data",
+                    "name": "Smartfren Data",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "data"
+                    ],
+                    "badge": "PULSA & DATA",
+                    "image": "https://files.catbox.moe/tcgl37.jpg",
+                    "packages": [
+                              {
+                                        "id": "smartfren_5gb_30hari",
+                                        "name": "Smartfren 5GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "smartfren_10gb_30hari",
+                                        "name": "Smartfren 10GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "smartfren_unlimited",
+                                        "name": "Smartfren Unlimited • FUP 5GB",
+                                        "price": "Rp 55.000",
+                                        "priceVal": 55000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_wps",
-            name: "WPS",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/ir45bx.jpg",
-            packages: [
-              { id: "wps_1bulan_private", name: "1 Bulan Private", price: "Rp 15.000", priceVal: 15000 },
-              { id: "wps_1bulan_premium", name: "1 Bulan Premium", price: "Rp 30.000", priceVal: 30000 }
-            ]
+                    "id": "produk_telkomsel_data",
+                    "name": "Telkomsel Data",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "data"
+                    ],
+                    "badge": "PULSA & DATA",
+                    "image": "https://files.catbox.moe/4xfnz0.png",
+                    "packages": [
+                              {
+                                        "id": "telkomsel_5gb_30hari",
+                                        "name": "Telkomsel 5GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 15.000",
+                                        "priceVal": 15000
+                              },
+                              {
+                                        "id": "telkomsel_10gb_30hari",
+                                        "name": "Telkomsel 10GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 30.000",
+                                        "priceVal": 30000
+                              },
+                              {
+                                        "id": "telkomsel_unlimited",
+                                        "name": "Telkomsel Unlimited • FUP 5GB",
+                                        "price": "Rp 70.000",
+                                        "priceVal": 70000
+                              }
+                    ]
           },
           {
-            id: "apk_prem_alquranindonesia",
-            name: "Al-Qur'an Indonesia",
-            cat: ["app", "premium", "apkprem"],
-            badge: "APK PREM",
-            image: "https://files.catbox.moe/1lhbkm.jpg",
-            packages: [
-              { id: "alquranindonesia_premium", name: "Premium", price: "Rp 25.000", priceVal: 25000 }
-            ]
+                    "id": "produk_xl_data",
+                    "name": "XL Axiata Data",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "data"
+                    ],
+                    "badge": "PULSA & DATA",
+                    "image": "https://files.catbox.moe/54a0m0.png",
+                    "packages": [
+                              {
+                                        "id": "xl_5gb_30hari",
+                                        "name": "XL 5GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 12.000",
+                                        "priceVal": 12000
+                              },
+                              {
+                                        "id": "xl_10gb_30hari",
+                                        "name": "XL 10GB • Masa Aktif 30 Hari",
+                                        "price": "Rp 25.000",
+                                        "priceVal": 25000
+                              },
+                              {
+                                        "id": "xl_unlimited",
+                                        "name": "XL Unlimited • FUP 4GB",
+                                        "price": "Rp 60.000",
+                                        "priceVal": 60000
+                              }
+                    ]
+          },
+          {
+                    "id": "pulsa_axis",
+                    "name": "Pulsa Axis",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "pulsa"
+                    ],
+                    "badge": "PULSA",
+                    "image": "https://files.catbox.moe/gciwbt.jpg",
+                    "packages": [
+                              {
+                                        "id": "pulsa_axis_5000",
+                                        "name": "Pulsa 5.000",
+                                        "price": "Rp 5.000",
+                                        "priceVal": 5000
+                              },
+                              {
+                                        "id": "pulsa_axis_10000",
+                                        "name": "Pulsa 10.000",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "pulsa_axis_20000",
+                                        "name": "Pulsa 20.000",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "pulsa_axis_50000",
+                                        "name": "Pulsa 50.000",
+                                        "price": "Rp 50.000",
+                                        "priceVal": 50000
+                              },
+                              {
+                                        "id": "pulsa_axis_100000",
+                                        "name": "Pulsa 100.000",
+                                        "price": "Rp 100.000",
+                                        "priceVal": 100000
+                              }
+                    ]
+          },
+          {
+                    "id": "pulsa_tri",
+                    "name": "Pulsa Tri (3)",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "pulsa"
+                    ],
+                    "badge": "PULSA",
+                    "image": "https://files.catbox.moe/0kd60s.jpg",
+                    "packages": [
+                              {
+                                        "id": "pulsa_tri_5000",
+                                        "name": "Pulsa 5.000",
+                                        "price": "Rp 5.000",
+                                        "priceVal": 5000
+                              },
+                              {
+                                        "id": "pulsa_tri_10000",
+                                        "name": "Pulsa 10.000",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "pulsa_tri_20000",
+                                        "name": "Pulsa 20.000",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "pulsa_tri_50000",
+                                        "name": "Pulsa 50.000",
+                                        "price": "Rp 50.000",
+                                        "priceVal": 50000
+                              },
+                              {
+                                        "id": "pulsa_tri_100000",
+                                        "name": "Pulsa 100.000",
+                                        "price": "Rp 100.000",
+                                        "priceVal": 100000
+                              }
+                    ]
+          },
+          {
+                    "id": "pulsa_smartfren",
+                    "name": "Pulsa Smartfren",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "pulsa"
+                    ],
+                    "badge": "PULSA",
+                    "image": "https://files.catbox.moe/tcgl37.jpg",
+                    "packages": [
+                              {
+                                        "id": "pulsa_smartfren_5000",
+                                        "name": "Pulsa 5.000",
+                                        "price": "Rp 5.000",
+                                        "priceVal": 5000
+                              },
+                              {
+                                        "id": "pulsa_smartfren_10000",
+                                        "name": "Pulsa 10.000",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "pulsa_smartfren_20000",
+                                        "name": "Pulsa 20.000",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "pulsa_smartfren_50000",
+                                        "name": "Pulsa 50.000",
+                                        "price": "Rp 50.000",
+                                        "priceVal": 50000
+                              },
+                              {
+                                        "id": "pulsa_smartfren_100000",
+                                        "name": "Pulsa 100.000",
+                                        "price": "Rp 100.000",
+                                        "priceVal": 100000
+                              }
+                    ]
+          },
+          {
+                    "id": "pulsa_telkomsel",
+                    "name": "Pulsa Telkomsel",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "pulsa"
+                    ],
+                    "badge": "PULSA",
+                    "image": "https://files.catbox.moe/4xfnz0.png",
+                    "packages": [
+                              {
+                                        "id": "pulsa_telkomsel_5000",
+                                        "name": "Pulsa 5.000",
+                                        "price": "Rp 5.000",
+                                        "priceVal": 5000
+                              },
+                              {
+                                        "id": "pulsa_telkomsel_10000",
+                                        "name": "Pulsa 10.000",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "pulsa_telkomsel_20000",
+                                        "name": "Pulsa 20.000",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "pulsa_telkomsel_50000",
+                                        "name": "Pulsa 50.000",
+                                        "price": "Rp 50.000",
+                                        "priceVal": 50000
+                              },
+                              {
+                                        "id": "pulsa_telkomsel_100000",
+                                        "name": "Pulsa 100.000",
+                                        "price": "Rp 100.000",
+                                        "priceVal": 100000
+                              }
+                    ]
+          },
+          {
+                    "id": "pulsa_xl",
+                    "name": "Pulsa XL Axiata",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "pulsa"
+                    ],
+                    "badge": "PULSA",
+                    "image": "https://files.catbox.moe/54a0m0.png",
+                    "packages": [
+                              {
+                                        "id": "pulsa_xl_5000",
+                                        "name": "Pulsa 5.000",
+                                        "price": "Rp 5.000",
+                                        "priceVal": 5000
+                              },
+                              {
+                                        "id": "pulsa_xl_10000",
+                                        "name": "Pulsa 10.000",
+                                        "price": "Rp 10.000",
+                                        "priceVal": 10000
+                              },
+                              {
+                                        "id": "pulsa_xl_20000",
+                                        "name": "Pulsa 20.000",
+                                        "price": "Rp 20.000",
+                                        "priceVal": 20000
+                              },
+                              {
+                                        "id": "pulsa_xl_50000",
+                                        "name": "Pulsa 50.000",
+                                        "price": "Rp 50.000",
+                                        "priceVal": 50000
+                              },
+                              {
+                                        "id": "pulsa_xl_100000",
+                                        "name": "Pulsa 100.000",
+                                        "price": "Rp 100.000",
+                                        "priceVal": 100000
+                              }
+                    ]
+          },
+          {
+                    "id": "produk_bug_otak",
+                    "name": "Bug Otak",
+                    "cat": [
+                              "app",
+                              "premium",
+                              "apkprem",
+                              "jasa"
+                    ],
+                    "badge": "PRODUK DIGITAL",
+                    "image": "https://files.catbox.moe/zyjlkm.jpg",
+                    "packages": [
+                              {
+                                        "id": "bug_otak_1pcs",
+                                        "name": "1 Item",
+                                        "price": "Rp 30.000",
+                                        "priceVal": 30000
+                              }
+                    ]
           }
-        ];
+];
 
         function getCatalogItems() {
           return [...appsData, ...logoJBData, ...apkPremData];
@@ -2526,7 +3333,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Likes Live • 100 Likes",
@@ -2655,7 +3462,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Share • 100 Share",
@@ -2784,7 +3591,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Views Story • 100 Views",
@@ -2913,7 +3720,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Followers Indo • 100 Followers",
@@ -3042,7 +3849,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Channel Members • 100 Members",
@@ -3171,7 +3978,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Likes Comments • 100 Likes C",
@@ -3300,7 +4107,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Likes Indo • 100 Likes",
@@ -3429,7 +4236,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Comments Verified • 1 Comments V",
@@ -3492,7 +4299,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Views Live • 100 Views",
@@ -3621,7 +4428,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Views • 100 Views",
@@ -3750,7 +4557,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Followers Random • 100 Followers",
@@ -3879,7 +4686,7 @@ const apkPremData = [
       "sosmed",
       "instagram"
     ],
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc0641f.jpg",
     "packages": [
       {
         "name": "IG Likes Verified • 1 Likes Verified",
@@ -5231,7 +6038,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah views video YouTube.",
     "packages": [
       {
@@ -5362,7 +6169,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah views untuk kebutuhan monetisasi.",
     "packages": [
       {
@@ -5493,7 +6300,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah like video YouTube.",
     "packages": [
       {
@@ -5624,7 +6431,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah dislike video YouTube.",
     "packages": [
       {
@@ -5755,7 +6562,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah komentar video YouTube.",
     "packages": [
       {
@@ -5886,7 +6693,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah jam tayang (watch hours).",
     "packages": [
       {
@@ -6017,7 +6824,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Paket views + jam tayang.",
     "packages": [
       {
@@ -6148,7 +6955,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah subscriber YouTube (biasa).",
     "packages": [
       {
@@ -6279,7 +7086,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah subscriber YouTube (premium).",
     "packages": [
       {
@@ -6410,7 +7217,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah subscriber YouTube (indo).",
     "packages": [
       {
@@ -6541,7 +7348,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah views YouTube Shorts.",
     "packages": [
       {
@@ -6672,7 +7479,7 @@ const apkPremData = [
       "youtube"
     ],
     "badge": "YouTube",
-    "image": "https://www.image2url.com/r2/default/images/1776617920567-f82b125f-0cc3-42ae-8f0c-96d0ecc064.jpg",
+    "image": "https://www.image2url.com/r2/default/images/1776617972824-4f900237-c060-4e6a-848a-0c066e08a8f5.png",
     "desc": "Tambah like YouTube Shorts.",
     "packages": [
       {
@@ -7065,7 +7872,7 @@ const apkPremData = [
       "manta"
     ],
     "badge": "Bug",
-    "image": "https://files.catbox.moe/dds1z.jpg",
+    "image": "https://cdn.phototourl.com/free/2026-04-19-4f554094-9884-4163-895a-929e432acbf1.jpg",
     "desc": "Tambah member Manta (server).",
     "packages": [
       {
@@ -7955,7 +8762,7 @@ function navTo(page) {
         renderApkPremGrid();
     } else if (page === 'admin-page') {
         document.getElementById('page-admin').style.display = 'block';
-        renderAdminPage();
+        if (isAdminLoggedIn()) renderAdminPage();
     }
 }
 
@@ -8072,7 +8879,7 @@ function navTo(page) {
                     </div>
                 `;
             });
-            container.innerHTML = html || '<div style="grid-column:1/-1; text-align:center; color:var(--text-sec);">Belum ada APK premium yang ditambahkan.</div>';
+            container.innerHTML = html || '<div style="grid-column:1/-1; text-align:center; color:var(--text-sec);">Belum ada produk digital yang ditambahkan.</div>';
             warmCatalogImages(apkPremData);
         }
 
@@ -8377,17 +9184,29 @@ function saveStore(key, value) {
     return true;
   } catch (error) {
     console.warn('Gagal menyimpan data lokal', error);
-    throw new Error('Penyimpanan lokal penuh. Hapus sebagian riwayat order atau kecilkan ukuran bukti transfer.');
+    throw new Error('Penyimpanan browser penuh. Coba hapus sebagian riwayat lama lalu kirim lagi.');
   }
+}
+function sanitizePersistedItem(item) {
+  if (!item || typeof item !== 'object') return item;
+  const clone = { ...item };
+  delete clone.proofDataUrl;
+  delete clone.proof_attachment;
+  delete clone.content;
+  delete clone.attachment;
+  return clone;
+}
+function sanitizePersistedCollection(items) {
+  return Array.isArray(items) ? items.map(sanitizePersistedItem) : [];
 }
 function getUsers() { return loadStore(STORAGE_KEYS.users, []); }
 function setUsers(users) { saveStore(STORAGE_KEYS.users, users); }
 function getOrders() { return loadStore(STORAGE_KEYS.orders, []); }
-function setOrders(items) { saveStore(STORAGE_KEYS.orders, items); }
+function setOrders(items) { saveStore(STORAGE_KEYS.orders, sanitizePersistedCollection(items)); }
 function getDeposits() { return loadStore(STORAGE_KEYS.deposits, []); }
-function setDeposits(items) { saveStore(STORAGE_KEYS.deposits, items); }
+function setDeposits(items) { saveStore(STORAGE_KEYS.deposits, sanitizePersistedCollection(items)); }
 function getMembershipRequests() { return loadStore(STORAGE_KEYS.membership, []); }
-function setMembershipRequests(items) { saveStore(STORAGE_KEYS.membership, items); }
+function setMembershipRequests(items) { saveStore(STORAGE_KEYS.membership, sanitizePersistedCollection(items)); }
 function getCurrentSession() { return loadStore(STORAGE_KEYS.session, null); }
 function setCurrentSession(session) { session ? saveStore(STORAGE_KEYS.session, session) : localStorage.removeItem(STORAGE_KEYS.session); }
 function isAdminLoggedIn() { const session = getCurrentSession(); return localStorage.getItem(STORAGE_KEYS.adminSession) === 'true' || !!session?.isAdmin; }
@@ -8431,7 +9250,8 @@ function updateProofStatus(inputId) {
   const status = document.getElementById(`${inputId}Status`);
   if (!status) return;
   const file = input?.files?.[0];
-  status.textContent = file ? `${file.name} • ${file.type || 'unknown'} • ${formatFileSize(file.size)}` : 'Belum ada file dipilih.';
+  status.textContent = file ? `${file.name} • ${file.type || 'unknown'} • ${formatFileSize(file.size)}` : '';
+  status.style.display = file ? 'block' : 'none';
 }
 function bindProofInputs() {
   ['orderProof', 'depositProof', 'membershipProof'].forEach((inputId) => {
@@ -8446,6 +9266,51 @@ function resetProofField(inputId) {
   const input = document.getElementById(inputId);
   if (input) input.value = '';
   updateProofStatus(inputId);
+}
+function setButtonLoading(button, isLoading, loadingText = 'Memproses...') {
+  if (!button) return;
+  if (isLoading) {
+    if (!button.dataset.originalText) button.dataset.originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = loadingText;
+    button.setAttribute('aria-busy', 'true');
+    return;
+  }
+  button.disabled = false;
+  if (button.dataset.originalText) button.innerHTML = button.dataset.originalText;
+  button.removeAttribute('aria-busy');
+}
+function getActionButton() {
+  return document.activeElement instanceof HTMLButtonElement ? document.activeElement : null;
+}
+function loadEmailJsScript() {
+  if (window.emailjs) return Promise.resolve(window.emailjs);
+  if (window.__emailJsLoaderPromise) return window.__emailJsLoaderPromise;
+  window.__emailJsLoaderPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-emailjs-loader="true"]');
+    if (existing) {
+      existing.addEventListener('load', () => resolve(window.emailjs), { once: true });
+      existing.addEventListener('error', () => reject(new Error('Script EmailJS gagal dimuat.')), { once: true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.defer = true;
+    script.dataset.emailjsLoader = 'true';
+    script.onload = () => resolve(window.emailjs);
+    script.onerror = () => reject(new Error('Script EmailJS gagal dimuat.'));
+    document.head.appendChild(script);
+  });
+  return window.__emailJsLoaderPromise;
+}
+async function ensureEmailJsReady() {
+  if (!window.emailjs) await loadEmailJsScript();
+  if (!window.emailjs) return null;
+  if (!window.__emailJsInited) {
+    emailjs.init({ publicKey: STORE_CONFIG.emailjs.publicKey });
+    window.__emailJsInited = true;
+  }
+  return window.emailjs;
 }
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
@@ -8482,7 +9347,8 @@ function loadImageFromFile(file) {
 }
 async function optimizeProofFile(file, options = {}) {
   const isImage = String(file.type || '').startsWith('image/');
-  if (!isImage) {
+  const keepOriginalBelowBytes = Number(options.keepOriginalBelowBytes || (220 * 1024));
+  if (!isImage || Number(file.size || 0) <= keepOriginalBelowBytes) {
     const dataUrl = await readFileAsDataUrl(file);
     return {
       dataUrl,
@@ -8492,19 +9358,8 @@ async function optimizeProofFile(file, options = {}) {
     };
   }
 
-  const shouldKeepOriginal = Number(file.size || 0) <= Number(options.keepOriginalBelowBytes || (350 * 1024));
-  if (shouldKeepOriginal) {
-    const dataUrl = await readFileAsDataUrl(file);
-    return {
-      dataUrl,
-      name: file.name || 'bukti-transfer',
-      type: file.type || 'application/octet-stream',
-      size: Number(file.size || 0)
-    };
-  }
-
-  const maxDimension = Number(options.maxDimension || 1280);
-  const quality = Number(options.quality || 0.8);
+  const maxDimension = Number(options.maxDimension || 960);
+  const quality = Number(options.quality || 0.72);
   const image = await loadImageFromFile(file);
   let width = Number(image.naturalWidth || image.width || 0);
   let height = Number(image.naturalHeight || image.height || 0);
@@ -8540,7 +9395,7 @@ async function optimizeProofFile(file, options = {}) {
   const dataUrl = canvas.toDataURL(outputType, quality);
   const optimizedSize = estimateDataUrlBytes(dataUrl);
 
-  if (optimizedSize >= Number(file.size || 0) * 0.95) {
+  if (optimizedSize >= Number(file.size || 0) * 0.9) {
     const originalDataUrl = await readFileAsDataUrl(file);
     return {
       dataUrl: originalDataUrl,
@@ -8564,7 +9419,7 @@ async function getProofPayload(inputId, options = {}) {
     if (required) throw new Error('Upload bukti transfer dulu sebelum kirim.');
     return { text: 'Tidak ada file', dataUrl: '', name: '', type: '', size: 0 };
   }
-  const maxBytes = Number(options.maxBytes || (4 * 1024 * 1024));
+  const maxBytes = Number(options.maxBytes || (2 * 1024 * 1024));
   if (file.size > maxBytes) {
     throw new Error(`Ukuran file terlalu besar. Maksimal ${formatFileSize(maxBytes)}.`);
   }
@@ -8609,26 +9464,16 @@ function calculateOrderTotal(basePrice, qty) {
   return { discount, total, membership: membership.label };
 }
 function initNamarketApp() {
-  try {
-    if (window.emailjs) {
-      emailjs.init({ publicKey: STORE_CONFIG.emailjs.publicKey });
-    }
-  } catch (error) {
-    console.warn('EmailJS init gagal', error);
-  }
+  setTimeout(() => loadEmailJsScript().catch(() => null), 900);
   renderUserPage();
   renderMembershipPage();
-  renderLogoJBGrid();
-  renderApkPremGrid();
-  warmCatalogImages(logoJBData);
-  warmCatalogImages(apkPremData);
-  renderAdminPage();
   updateDepositPreview();
   updateMembershipPreview();
   bindProofInputs();
   setPaymentPreview('paymentPreviewBox', 'qris');
   syncPaymentModalState();
-  // renderAllProducts(''); // ditunda sampai halaman produk dibuka
+  if (isAdminLoggedIn()) renderAdminPage();
+  // katalog halaman lain dirender saat dibuka supaya awal load tetap ringan
 }
 function switchAuthTab(mode) {
   document.getElementById('loginTabBtn')?.classList.toggle('active', mode === 'login');
@@ -8724,11 +9569,11 @@ function renderUserPage() {
 
 function buildPaymentPreview(method) {
   const paymentMap = {
-    qris: `<div style="font-weight:800; margin-bottom:8px;">QRIS</div><img class="qris-preview" src="${STORE_ASSET_URLS.qris}" alt="QRIS NAMARKET141" width="240" height="240" loading="eager" decoding="async" fetchpriority="high"><div class="helper-text" style="margin-top:10px;">Scan QRIS di atas lalu upload bukti transfer untuk verifikasi.</div>`,
+    qris: `<div style="font-weight:800; margin-bottom:8px;">QRIS</div><img class="qris-preview" src="${STORE_ASSET_URLS.qris}" alt="QRIS NAMARKET141" width="240" height="240" loading="eager" decoding="async" fetchpriority="high"><div class="helper-text" style="margin-top:10px;">Scan QRIS lalu upload bukti transfer.</div>`,
     dana: `<div style="font-weight:800;">DANA</div><div class="helper-text" style="margin-top:8px;">089676168282</div>`,
     gopay: `<div style="font-weight:800;">GOPAY</div><div class="helper-text" style="margin-top:8px;">089673783771</div>`,
     ovo: `<div style="font-weight:800;">OVO</div><div class="helper-text" style="margin-top:8px;">089673783771</div>`,
-    saldo: `Pembayaran menggunakan saldo akun. Pastikan saldo kamu cukup sebelum checkout.`
+    saldo: `Pembayaran memakai saldo akun.`
   };
   return paymentMap[method] || paymentMap.qris;
 }
@@ -8757,7 +9602,7 @@ function renderMembershipPage() {
   if (!root) return;
   const user = getCurrentUser();
   if (!user || user.isAdmin) {
-    root.innerHTML = `<div class="membership-hero"><h3 style="margin-bottom:8px;">Masuk akun dulu untuk menikmati potongan harga otomatis.</h3><p class="helper-text">Setelah login, tier membership aktif kamu akan tampil di sini.</p></div>`;
+    root.innerHTML = `<div class="membership-hero"><h3 style="margin-bottom:8px;">Masuk akun untuk lihat membership aktif kamu.</h3><p class="helper-text">Potongan harga akan aktif otomatis saat checkout.</p></div>`;
     return;
   }
   const tier = MEMBERSHIPS[user.membership] || MEMBERSHIPS.bronze;
@@ -8772,7 +9617,11 @@ function syncPaymentModalState() {
   document.body.classList.toggle('payment-modal-open', isPaymentModalOpen);
 }
 function openModalById(id) {
-  document.getElementById(id)?.classList.add('show');
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  modal.classList.add('show');
+  const card = modal.querySelector('.modal-card');
+  if (card) card.scrollTop = 0;
   syncPaymentModalState();
 }
 function closeModalById(id) {
@@ -8873,7 +9722,8 @@ function copyCurrentOrder() {
   navigator.clipboard.writeText(buildOrderCopyText(payload)).then(() => alert('Data order berhasil disalin.'));
 }
 async function sendEmail(type, payload) {
-  if (!window.emailjs) return { ok: false, message: 'Sistem pengiriman sedang tidak tersedia.' };
+  const emailReady = await ensureEmailJsReady();
+  if (!emailReady) return { ok: false, message: 'Sistem pengiriman sedang tidak tersedia.' };
   const params = {
     title: `${STORE_CONFIG.name} - ${type}`,
     subject: `${STORE_CONFIG.name} | ${type}`,
@@ -8902,10 +9752,12 @@ async function sendEmail(type, payload) {
     return { ok: true };
   } catch (error) {
     console.warn('EmailJS gagal', error);
-    return { ok: false, message: 'Pengiriman email sedang terkendala, tapi data dan bukti transfer tetap tersimpan di perangkat admin.' };
+    return { ok: false, message: 'Data pesanan tetap masuk, tapi pengiriman notifikasi sedang terkendala.' };
   }
 }
 async function submitOrderForm() {
+  const actionButton = getActionButton();
+  setButtonLoading(actionButton, true, 'Mengirim order...');
   try {
     const packageName = document.getElementById('orderPackageRaw').value;
     const whatsapp = document.getElementById('orderWhatsapp').value.trim();
@@ -8950,12 +9802,16 @@ async function submitOrderForm() {
     closeModalById('orderModal');
     alert(mail.ok ? 'Order berhasil dikirim.' : mail.message || 'Order berhasil dibuat.');
     renderUserPage();
-    renderAdminPage();
+    if (isAdminLoggedIn()) renderAdminPage();
   } catch (error) {
     alert(error?.message || 'Kirim order gagal. Coba lagi.');
+  } finally {
+    setButtonLoading(actionButton, false);
   }
 }
 async function submitDepositForm() {
+  const actionButton = getActionButton();
+  setButtonLoading(actionButton, true, 'Mengirim deposit...');
   try {
     const username = document.getElementById('depositUsername').value.trim();
     const whatsapp = document.getElementById('depositWhatsapp').value.trim();
@@ -8984,12 +9840,16 @@ async function submitDepositForm() {
     closeModalById('depositModal');
     alert(mail.ok ? 'Request deposit berhasil dikirim.' : mail.message || 'Request deposit berhasil dibuat.');
     renderUserPage();
-    renderAdminPage();
+    if (isAdminLoggedIn()) renderAdminPage();
   } catch (error) {
     alert(error?.message || 'Kirim deposit gagal. Coba lagi.');
+  } finally {
+    setButtonLoading(actionButton, false);
   }
 }
 async function submitMembershipForm() {
+  const actionButton = getActionButton();
+  setButtonLoading(actionButton, true, 'Mengirim request...');
   try {
     const username = document.getElementById('membershipUsername').value.trim();
     const whatsapp = document.getElementById('membershipWhatsapp').value.trim();
@@ -9018,9 +9878,11 @@ async function submitMembershipForm() {
     const mail = await sendEmail('MEMBERSHIP', item);
     closeModalById('membershipModal');
     alert(mail.ok ? 'Request membership berhasil dikirim.' : mail.message || 'Request membership berhasil dibuat.');
-    renderAdminPage();
+    if (isAdminLoggedIn()) renderAdminPage();
   } catch (error) {
     alert(error?.message || 'Kirim request membership gagal. Coba lagi.');
+  } finally {
+    setButtonLoading(actionButton, false);
   }
 }
 function adminLogin() {
